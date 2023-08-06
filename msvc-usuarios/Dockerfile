@@ -29,6 +29,9 @@ RUN ./mvnw clean package -DskipTests
 FROM openjdk:11.0.16
 
 WORKDIR /app
+#cuando se cree la segunda imagen por el builder, luego se crearia la carpeta logs en la carpeta de trabajo, "/app"
+RUN mkdir ./logs
+
 #con from hacemos referencia a la imagen anterior. Lo hacemos para copiar el target que se
 #genero en la construccion anterior en la carpeta /app
 COPY --from=builder /app/msvc-usuarios/target/msvc-usuarios-0.0.1-SNAPSHOT.jar .
@@ -36,6 +39,5 @@ COPY --from=builder /app/msvc-usuarios/target/msvc-usuarios-0.0.1-SNAPSHOT.jar .
 #puerto donde se ejecuta la aplicacion. En el contenedor se tiene que habilitar este puerto
 EXPOSE 8001
 
-#A pesar de que el dockerfile esta en msvc-usuarios, tenemos que levantar el dockerfile desde "curso-kubernetes",
-#porque se quiere copiar el pom del parent y el modulo msvc-usuarios.
-ENTRYPOINT ["java", "-jar", "msvc-usuarios-0.0.1-SNAPSHOT.jar"]
+#se cambia a CMD porque el ENTRYPOINT es inmutable, no se puede cambiar el comando de arranque por otro
+CMD ["java", "-jar", "msvc-usuarios-0.0.1-SNAPSHOT.jar"]
