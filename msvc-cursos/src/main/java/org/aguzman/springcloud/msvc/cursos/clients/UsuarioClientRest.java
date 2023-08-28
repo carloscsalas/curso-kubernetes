@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 
-/*FeignClient, nos permite consumir al microservicio usuario.
-name, nombre del microservicio. url, url base del microservicio*/
-@FeignClient(name = "msvc-usuarios", url = "localhost:8000")
+/*FeignClient, nos permite consumir al microservicio usuario.*/
+@FeignClient(name = "msvc-usuarios", url = "msvc-usuarios:8001")
 public interface UsuarioClientRest {
 
     @GetMapping("/{id}")
