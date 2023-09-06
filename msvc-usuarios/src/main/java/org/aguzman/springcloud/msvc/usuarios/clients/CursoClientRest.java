@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * nombre que se le asigne cuando se cree el contenedor
  * con el --name "msvc-cursos" y tambien tiene que coincidir con el nombre del microservicio que esta definido
  * en el application.properties"*/
-@FeignClient(name = "msvc-cursos", url="msvc-cursos:8002")
+@FeignClient(name = "msvc-cursos", url="msvc.cursos.url")
 public interface CursoClientRest {
 
     @DeleteMapping("/eliminar-curso-usuario/{id}")

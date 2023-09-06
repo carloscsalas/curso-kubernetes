@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-
-/*FeignClient, nos permite consumir al microservicio usuario.*/
-@FeignClient(name = "msvc-usuarios", url = "msvc-usuarios:8001")
+/**en la variable url, podemos utilizar los datos del aplication.properties. Por ejemplo utilizamos esa llave del
+ * property para configurar el host del microserv. usuarios*/
+@FeignClient(name = "msvc-usuarios", url = "${msvc.usuarios.url}")
 public interface UsuarioClientRest {
 
     @GetMapping("/{id}")
