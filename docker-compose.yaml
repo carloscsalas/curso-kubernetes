@@ -33,12 +33,13 @@ services:
 
   msvc-usuarios:
     container_name: msvc-usuarios
+    image: gfernandez16/usuarios:latest
     #En ves de utilizar la imagen, que pueda  que no exista, se podria contruir la imagen con build al levantar con up
     #image: usuarios:latest
-    build:
-      #context, seria el "." cuando se hace docker build ., que seria el lugar de partida o raiz
-      context: ./
-      dockerfile: ./msvc-usuarios/Dockerfile
+#    build:
+#      #context, seria el "." cuando se hace docker build ., que seria el lugar de partida o raiz
+#      context: ./
+#      dockerfile: ./msvc-usuarios/Dockerfile
     ports:
       - "8001:8001"
     env_file: ./msvc-usuarios/.env
@@ -52,9 +53,10 @@ services:
   msvc-cursos:
     #si no se pone este atributo, el nombre del contenedor es por defecto(curso-kubernetes_data-postgres)
     container_name: msvc-cursos
-    build:
-      context: ./
-      dockerfile: ./msvc-cursos/Dockerfile
+    image: gfernandez16/cursos:latest
+#    build:
+#      context: ./
+#      dockerfile: ./msvc-cursos/Dockerfile
     ports:
       - "8002:8002"
     env_file:
