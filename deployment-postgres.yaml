@@ -1,0 +1,32 @@
+#cuando esl recurso es un tipo/kind deployment, siempre va el 'apps'
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  #nombre al deployment
+  name: postgres14
+#la especificacion del deployment
+spec:
+  replicas: 1
+  #para seleccionar los pods segun las etiquetas/labels
+  selector:
+    matchLabels:
+      role: postgres
+  template:
+    metadata:
+      labels:
+        #aca tiene que ser el mismo nombre de etique y valor que se puso en el 'selector'
+        role: postgres
+    spec:
+      containers:
+        - name: postgres14
+          image: postgres:14-alpine
+          ports:
+            #puerto de la aplicacion, de postgress
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_PASSWORD
+              value: pgdb
+            - name: POSTGRES_DB
+              value: msvc_cursos
+
+

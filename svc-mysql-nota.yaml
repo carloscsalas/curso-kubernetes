@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2023-11-22T15:47:10Z"
+  name: mysql8
+  #normalmente es por defecto
+  namespace: default
+  resourceVersion: "29664"
+  uid: ec181b4e-582b-4a6d-9e09-c722c4ff6e42
+spec:
+  #Los clusterIP se crear de forma automatica cuando se crea el servicio, se podria remover
+  clusterIP: 10.110.86.38
+  clusterIPs:
+  - 10.110.86.38
+  internalTrafficPolicy: Cluster
+  #Esto es por defecto, podria quitar
+  ipFamilies:
+  - IPv4
+  #Esto es por defecto, podria quitar
+  ipFamilyPolicy: SingleStack
+  ports:
+  #puerto del servicio que se va exponer para manejar el trafico hacia el target/contenedor
+  - port: 3306
+    protocol: TCP
+    #puerto interno que va tener el contenedor, la aplicación, el puerto del servidor de mysql
+    targetPort: 3306
+  #Selector permite seleccionar un conjunto de Pods que contengan esta etiqueta/label (app: mysql8).
+  #entonces va seleccionar todos los pods en cualquier deployment. Por ejm este servicio va seleccionar
+  #todos los pods del deployment-mysql.yaml con etiqueta (app: mysql8).
+  selector:
+    app: mysql8
+    #se puede remover para una configuracion basica
+  sessionAffinity: None
+  type: ClusterIP
+#se puede remover para una configuracion basica
+status:
+  loadBalancer: {}

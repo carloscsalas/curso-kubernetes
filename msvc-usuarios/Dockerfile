@@ -55,8 +55,8 @@ EXPOSE $PORT
 
 #aca no se deberia usar la variable ARG, porque este linea se ejecuta en el contenedor, si lo colocamos
 #aca no lo va reconocer
-##CMD ["java", "-jar", "msvc-usuarios-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "msvc-usuarios-0.0.1-SNAPSHOT.jar"]
 
 #Implementamos otro CMD para darle un tiempo de espera al contenedor, con un comado de linux sleep.
 ##Aca ejecutamos una sentencia completa. Arriba es una ejecucion con comando  donde "java" seria el principal
-CMD sleep 20 && java -jar msvc-usuarios-0.0.1-SNAPSHOT.jar
+#CMD sleep 20 && java -jar msvc-usuarios-0.0.1-SNAPSHOT.jar

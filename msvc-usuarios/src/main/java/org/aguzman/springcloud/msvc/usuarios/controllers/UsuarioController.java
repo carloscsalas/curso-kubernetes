@@ -2,6 +2,8 @@ package org.aguzman.springcloud.msvc.usuarios.controllers;
 import org.aguzman.springcloud.msvc.usuarios.models.entity.Usuario;
 import org.aguzman.springcloud.msvc.usuarios.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -20,9 +22,20 @@ public class UsuarioController {
     @Autowired
     private UsuarioService service;
 
+    @Autowired
+    private ApplicationContext context;
+
+    @GetMapping("/crash")
+    public void crash(){
+        /*Aca se va simular un quiebre de aplicación. La idea es que cuando se invoque esta ruta y
+        ocurra error, la aplicacion se va caer y kubernetes tendria que reiniciar el pod y levantar una
+         nueva instancia para que mantenga el escenario ideal que tenemos configurado*/
+        ((ConfigurableApplicationContext)context).close();
+    }
+
     @GetMapping
     public Map<String,List<Usuario>> listar() {
-        return Collections.singletonMap("users", service.listar());
+        return Collections.singletonMap("usuarios", service.listar());
     }
 
     @GetMapping("/{id}")

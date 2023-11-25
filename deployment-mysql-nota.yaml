@@ -1,0 +1,34 @@
+#Aca se especifica la version del archivo deployment
+apiVersion: apps/v1
+#Es el tipo de objeto
+kind: Deployment
+metadata:
+  #fecha de creacion
+  creationTimestamp: null
+  name: mysql8
+#especificación del deployment
+spec:
+  #las instancias de los pods
+  replicas: 1
+  #selecciona un conjunto de pods mediante el nombre de la etiqueta (template->labels) y que tiene que
+  #coincidir con (selector->matchLabels->app)
+  selector:
+    matchLabels:
+      app: mysql8
+  #aca se configura el pod
+  template:
+    metadata:
+      #fecha de creación
+      creationTimestamp: null
+      labels:
+        #app, es cualquier nombre que le podemos dar
+        app: mysql8
+    #especificación del pod
+    spec:
+      #contenedor
+      containers:
+      - image: mysql:8
+        name: mysql8
+        #El puerto de mysql, de la aplicación, el puerto interno del contenedor
+        ports:
+        - containerPort: 3306

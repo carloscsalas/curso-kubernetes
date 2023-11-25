@@ -39,6 +39,6 @@ COPY --from=builder /app/msvc-cursos/target/msvc-cursos-0.0.1-SNAPSHOT.jar .
 EXPOSE 8001
 
 #se cambia a CMD porque el ENTRYPOINT es inmutable, no se puede cambiar el comando de arranque por otro
-##CMD ["java", "-jar", "msvc-cursos-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "msvc-cursos-0.0.1-SNAPSHOT.jar"]
 
-CMD sleep 10 && java -jar msvc-cursos-0.0.1-SNAPSHOT.jar
+#CMD sleep 10 && java -jar msvc-cursos-0.0.1-SNAPSHOT.jar

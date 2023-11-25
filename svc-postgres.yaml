@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  #El nombre del service corresponde al nombre del host para la comunicación interna entre los pods, entonces
+  #es conveniente poder el mismo nombre que se tiene en docker-compose 'postgres14', porque es el que se esta utilizando
+  #y tambien es ese nombre que se esta usando en la creación del deployment
+  name: postgres14
+spec:
+  ports:
+    #es el puerto para manejar el trafico del servicio hacia el pod
+    - port: 5432
+      protocol: TCP
+      targetPort: 5432
+  selector:
+    #Aca debe tener el mismo nombre de label y valor, que se definio en el deployment (template>labels)
+    role: postgres
+  type: ClusterIP
+

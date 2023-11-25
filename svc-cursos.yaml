@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: msvc-cursos
+spec:
+  #Importante para poder comunicarnos de manera externa e interna entre pods
+  type: LoadBalancer
+  ports:
+    - port: 8002
+      protocol: TCP
+      #puerto de la aplicacion que esta dentro del contenedor, que seria equivalente al 'containerPort' del deployment.
+      targetPort: 8002
+  selector:
+    app: msvc-cursos
