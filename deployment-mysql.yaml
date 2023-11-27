@@ -22,3 +22,23 @@ spec:
             value: mysqldb
           - name: MYSQL_DATABASE
             value: msvc_usuarios
+        #vol(2) utilizando el volume en el contendor de mysql
+        volumeMounts:
+          - name: data-mysql
+            #carpeta interna en el contenedor donde mysql va guardar los datos, y estos datos se van
+            #a montar en la carpeta especificada en 'volumes'->'hostPath'. Es importante que esta ruta
+            #de carpeta sea la misma que el directoria donde guarda el contenedor los datos(la que se puso
+            #en el docker-compose al crear el volume en el servicio de mysql)
+            mountPath: /var/lib/mysql
+      #vol(1) creando volumes, fuera del pod.
+      volumes:
+        - name: data-mysql
+          #-- Se va remover el hostPath, porque se va implementar el PersistentVolumeClaim. Antes se usaba para tener un volume a nivel de WorkerNode
+            #-- hostPath:
+            #-- #ruta del volume donde se van a guardar los datos
+            #-- path: /var/lib/mysql
+          #-- type: DirectoryOrCreate
+          persistentVolumeClaim:
+            #nombre que se definio en el metadata de mysql-pvc.yaml
+            claimName: mysql-pvc
+

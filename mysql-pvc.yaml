@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pvc
+spec:
+  #En esta altura son los atributos propios de pvc.
+  #Es el nombre al cual se va solicitar acceso.
+  volumeName: mysql-pv
+  accessModes:
+    #recomendable que coincida con lo definido en mysql-pv
+    - ReadWriteOnce
+  storageClassName: standard
+  #Aca de define la capacidad de almacenamiento que se necesitara. No debe superar lo definico en pv.yaml
+  resources:
+    requests:
+      storage: 2Gi
