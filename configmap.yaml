@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: msvc-usuarios
+#En los otros objetos se utilizao 'spec', pero aca se utiliza 'data'
+data:
+  #tod en minuscula porque no son variables de entorno, son solo configuraciones
+  port: "8001"
+  db_host: "mysql8:3306"
+  database: msvc_usuarios
+  ##username: root
+  ##password: mysqldb
+  curso_url: msvc-cursos:8002
+---
+#Agregando configuraciones relacionado a otro objeto
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: msvc-cursos
+data:
+  port: "8002"
+  db_host: "postgres14:5432"
+  database: msvc_cursos
+  #Comentamos porque ya se estaria definiendo esos valores en el objeto secret.yaml
+  ##username: postgres
+  ##password: pgdb
+  usuario_url: msvc-usuarios:8001

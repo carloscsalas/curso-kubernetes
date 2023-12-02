@@ -25,9 +25,16 @@ spec:
             - containerPort: 5432
           env:
             - name: POSTGRES_PASSWORD
-              value: pgdb
+              valueFrom:
+                ##configMapKeyRef:
+                secretKeyRef:
+                  name: msvc-cursos
+                  key: password
             - name: POSTGRES_DB
-              value: msvc_cursos
+              valueFrom:
+                configMapKeyRef:
+                  name: msvc-cursos
+                  key: database
           #Un contenedor podria montar mas de un volume
           volumeMounts:
             - name: data-postgres

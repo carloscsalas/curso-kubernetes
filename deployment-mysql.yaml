@@ -19,9 +19,19 @@ spec:
         - containerPort: 3306
         env:
           - name: MYSQL_ROOT_PASSWORD
-            value: mysqldb
+            valueFrom:
+              #Hace referencia a la llave donde tenemos asociado el valor del password configurado en el configmap
+              ##configMapKeyRef:
+              secretKeyRef:
+                #el nombre del objeto 'configMap' del cual obtendremos las configuraciones
+                name: msvc-usuarios
+                #este seria el key
+                key: password
           - name: MYSQL_DATABASE
-            value: msvc_usuarios
+            valueFrom:
+              configMapKeyRef:
+                name: msvc-usuarios
+                key: database
         #vol(2) utilizando el volume en el contendor de mysql
         volumeMounts:
           - name: data-mysql
