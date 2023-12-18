@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: msvc-usuarios
 spec:
-  replicas: 1
+  replicas: 2
   #Para seleccionar los pods para este deployment
   selector:
     matchLabels:
@@ -53,3 +53,51 @@ spec:
               configMapKeyRef:
                 name: msvc-usuarios
                 key: curso_url
+          #para visualizar informacion del nodo o pod que se esta ejecutando
+          - name: MY_NODE_NAME
+            valueFrom:
+              #fieldRef, para obtener data propio del pod
+              fieldRef:
+                fieldPath: spec.nodeName
+          - name: MY_POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: MY_POD_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+#Comentamos para ahorrar recurso en la laptop y se maneje tod por defecto
+#        readinessProbe:
+#          httpGet:
+#            #ruta para comprobar que nuestra aplicacion puede recibir trafico o solicitudes
+#            path: /actuator/health/readiness
+#            #puerto del msvc-usuarios
+#            port: 8001
+#            scheme: HTTP
+#          #que comience con un daily el sondeo, despues de unos segundos que arranque la aplicacion, empiece con el sondeo
+#          initialDelaySeconds: 5
+#          #cada que tiempo va volver a realizar el sondeo
+#          periodSeconds: 20
+#          #cuando no responde despues de 10s la solicitud a la ruta de actuator health y no hay alguna
+#          #respuesta se podria tomar como un problema
+#          timeoutSeconds: 10
+#        livenessProbe:
+#          httpGet:
+#            path: /actuator/health/liveness
+#            port: 8001
+#            scheme: HTTP
+#          initialDelaySeconds: 10
+#          periodSeconds: 30
+#          timeoutSeconds: 10
+#        #recursos que le vamos a garantizar(si o si) que va tener el contenedor, tanto en memoria como en cpu
+#        resources:
+#          requests:
+#            #256 megabytes de ram
+#            memory: "512Mi"
+#            #m, milicore; donde 1core es 1000 milicore
+#            cpu: "400m"
+#        #limits, son recurso tope que podrian tener en cierto momento en cpu o memoria el contenedor
+#          limits:
+#            memory: "700Mi"
+#            cpu: "550m"

@@ -11,6 +11,29 @@ data:
   ##username: root
   ##password: mysqldb
   curso_url: msvc-cursos:8002
+  #aca indicamos que utilizaremos application.yaml en vez del .properties. "|-", permite indicar
+  # que lo que trabajares sera un archivo y nos ubicara en la raiz del archivo y ya ahi podemos
+  # tener configuraciones del application.properties, sobreescribir configuraciones del proyecto de spring boot.
+  # "texto: ..", sera un configuracion que podriamos utilizar en nuestro proyecto de spring boot, si que
+  # lo tengamos en application.properties del proyecto
+  application.yaml: |-
+    config:
+      texto: Configurando ambiente por defecto
+    #Separamos en otro archivo de configuracion. El de arriba seria uno como por default
+    ---
+    spring:
+      config:
+        activate:
+          on-profile: dev
+    config:
+      texto: Configurando ambiente de desarrollo
+    ---
+    spring:
+      config:
+        activate:
+          on-profile: pro
+    config:
+      texto: Configurando ambiente de producción
 ---
 #Agregando configuraciones relacionado a otro objeto
 apiVersion: v1

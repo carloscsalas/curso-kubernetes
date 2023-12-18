@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-/**en la variable url, podemos utilizar los datos del aplication.properties. Por ejemplo utilizamos esa llave del
- * property para configurar el host del microserv. usuarios*/
-@FeignClient(name = "msvc-usuarios", url = "${msvc.usuarios.url}")
+/*Este nombre se configura en el application.properties del servicio usuario al cual nos queremos
+comunicar. Como esta registrado con el AutoDiscoveryClient spring cloud de forma automatica se va comunicar
+con el api de kubernetes, va obtener la lista de servicios que contienen el hostname y puerto y los registra
+en un diretorio(muy parecido a lo que hace eureka de springcloud de netflix)*/
+@FeignClient(name = "msvc-usuarios")
 public interface UsuarioClientRest {
 
     @GetMapping("/{id}")
