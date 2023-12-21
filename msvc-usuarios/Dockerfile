@@ -1,7 +1,7 @@
 #variable que se usa a nivel de Dockerfile y construccion de imagen. Es un arg global
 ARG MSVC_NAME=msvc-usuarios
 
-FROM openjdk:11.0.16 as builder
+FROM openjdk:17-jdk-alpine as builder
 #se coloca el arg msvc_name despues de cada from para que sea considerado en esta etapa
 ARG MSVC_NAME
 
@@ -29,7 +29,7 @@ COPY ./$MSVC_NAME/src ./src
 #aca solo se compila y no descarga dependencias
 RUN ./mvnw clean package -DskipTests
 
-FROM openjdk:11.0.16
+FROM openjdk:17-jdk-alpine
 #se declara el arg msvc_name despues de cada from para que sea considerado en esta etapa
 ARG MSVC_NAME
 

@@ -1,0 +1,23 @@
+#Aca vamos a enrutar y configurar
+Spring:
+  cloud:
+    gateway:
+      #vamos a enrutar los microservicios
+      routes:
+        - id: msvc-cursos
+          #se utiliza loadbalancer(ya se tiene la dependencia loadbalancer spring cloud),
+          uri: lb://msvc-cursos
+          #predicates, son como condiciones. Path, Cada ves que desde el navegador o postman queremos acceder...
+          #mediante el api gateway, pondemos la ip del gateway el puerto 8090(o el puerto que nos da minikube) ...
+          #y la ruta api/cursos, estaremos accediendo al msvc con balanceo de carga del gateway, centralizado
+          predicates:
+            - Path=/api/cursos/**
+          #filtros, como por ejm para indicar la cantidad de partes del path. 2, porque tiene "api" y "cursos"
+          filters:
+            - StripPrefix=2
+        - id: msvc-usuarios
+          uri: lb://msvc-usuarios
+          predicates:
+            - Path=/api/usuarios/**
+          filters:
+            - StripPrefix=2

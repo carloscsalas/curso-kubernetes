@@ -1,4 +1,4 @@
-FROM openjdk:11.0.16 as builder
+FROM openjdk:17-jdk-alpine as builder
 
 #app, se va copiar el pom del parent y en msvc-cursos el pom del microservicio
 WORKDIR  /app/msvc-cursos
@@ -25,7 +25,7 @@ COPY ./msvc-cursos/src ./src
 #aca solo se compila y no descarga dependencias
 RUN ./mvnw clean package -DskipTests
 
-FROM openjdk:11.0.16
+FROM openjdk:17-jdk-alpine
 
 WORKDIR /app
 #cuando se cree la segunda imagen por el builder, luego se crearia la carpeta logs en la carpeta de trabajo, "/app"
