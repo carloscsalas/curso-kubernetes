@@ -6,8 +6,10 @@ spec:
   volumeName: postgres-pv
   accessModes:
     #recomendable que coincida con lo definido en mysql-pv
-    - ReadWriteOnce
-  storageClassName: standard
+    ##- ReadWriteOnce
+    - ReadWriteMany
+  #storageClassName: standard
+  storageClassName: ""
   #Aca de define la capacidad de almacenamiento que se necesitara. No debe superar lo definico en pv.yaml
   resources:
     requests:

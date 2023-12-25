@@ -8,10 +8,10 @@ spec:
   # de LoadBalancer fuera NodePort, ahora se podria quitar porque al ser LoadBalancer lo podria manejar automaticamente
 ##  - nodePort: 31032
     #este es el puerto del servicio para manejar el trafico
-    port: 8001
-    protocol: TCP
+    - port: 8001
+      protocol: TCP
     #puerto de la aplicacion que esta dentro del contenedor, de msvc-usuarios
-    targetPort: 8001
+      targetPort: 8001
   #va seleccionar todos los pods que tengas esa etiqueta
   selector:
     app: msvc-usuarios

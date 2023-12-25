@@ -7,14 +7,22 @@ spec:
   capacity:
     #capacidad maxima de almacenamiento, se mide en gigas
     storage: 2Gi
-  #Es la clase de almacenamiento que tenemos actualmente, ahora en el curso con minikube nos muestra 'standard'
-  storageClassName: standard
-  #por defecto suele ser este modo, este atributo es opcional
+  ##PAra minikube
+  ##storageClassName: standard
+  #"", solo entre comillas para kubernetes
+  storageClassName: ""
   volumeMode: Filesystem
   #tipos de acceso que se van a poder solicitr con los 'VolumeClaim' desde los deployments
   accessModes:
-    #Once, significa un solo nodo, como lo que se tiene con minikube
-    - ReadWriteOnce
-  hostPath:
-    path: /var/lib/mysql
-    type: DirectoryOrCreate
+    ##Para minikube
+    ##- ReadWriteOnce
+    #Many, porque estaremos en multinodes. Once es para solo un nodo
+    - ReadWriteMany
+  #Para kubernetes
+  csi:
+    driver: efs.csi.aws.com
+    #Aca va el id, del EFS de mysql que hemos creado("ID del sistema de archivos")
+    volumeHandle: fs-035b8eceb2b14316f
+##  hostPath:
+##    path: /var/lib/mysql
+##    type: DirectoryOrCreate

@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: msvc-usuarios
 spec:
-  replicas: 2
+  replicas: 1
   #Para seleccionar los pods para este deployment
   selector:
     matchLabels:
